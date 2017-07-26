@@ -4,7 +4,7 @@
 [![NPM downloads](https://img.shields.io/npm/dm/poi-preset-sass-resources.svg?style=flat-square)](https://npmjs.com/package/poi-preset-sass-resources)
 [![Build Status](https://img.shields.io/circleci/project/weirongxu/poi-preset-sass-resources/master.svg?style=flat-square)](https://circleci.com/gh/weirongxu/poi-preset-sass-resources)
 
-Add [sass-resources-loader](https://github.com/shakacode/sass-resources-loader) support to vue component.
+Add [sass-resources-loader](https://github.com/shakacode/sass-resources-loader) support to [Poi](https://github.com/egoist/poi).
 
 ## Install
 

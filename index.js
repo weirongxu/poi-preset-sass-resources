@@ -25,7 +25,7 @@ function injectResources(rule, presetOptions) {
 }
 
 /**
- * Add sass-resources support to Vue.
+ * Add sass-resources support to Poi.
  * @name sassResourcesPreset
  * @param {Object} options
  * @param {String|String[]} [options.resources]
