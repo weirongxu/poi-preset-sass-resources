@@ -31,7 +31,7 @@ module.exports = {
 
 ### sassResourcesPreset
 
-Add sass-resources support to Vue.
+Add sass-resources support to Poi.
 
 **Parameters**
 
