@@ -17,9 +17,13 @@
         "error",
         "always-multiline"
       ],
-      "indent": ["error", 2, {
-        "MemberExpression": "off"
-      }]
+      "indent": [
+        "error",
+        2,
+        {
+          "MemberExpression": "off"
+        }
+      ]
     }
   },
   "scripts": {
