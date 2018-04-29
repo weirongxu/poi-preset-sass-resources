@@ -1,22 +1,22 @@
-function injectResourcesToVue(options, presetOptions) {
+function injectResourcesToVue(options, resources, scope) {
   const loader = {
     loader: 'sass-resources-loader',
     options: {
-      resources: presetOptions.resources,
+      resources,
     },
   }
-  if (presetOptions.scope.includes('vue/sass')) {
+  if (scope.includes('vue/sass')) {
     options.loaders.sass.push(loader)
   }
-  if (presetOptions.scope.includes('vue/scss')) {
+  if (scope.includes('vue/scss')) {
     options.loaders.scss.push(loader)
   }
   return options
 }
 
-function injectResources(rule, presetOptions) {
+function injectResources(rule, resources) {
   const options = {
-    resources: presetOptions.resources,
+    resources,
   }
   rule
     .use('sass-resources-loader')
@@ -32,27 +32,26 @@ function injectResources(rule, presetOptions) {
  * @param {String[]} [options.scope=['vue/scss', 'vue/sass', 'scss', 'sass']]
  *
  */
-module.exports = options => {
-  if (!options.resources) {
+module.exports = ({
+  scope = ['vue/scss', 'vue/sass', 'scss', 'sass'],
+  resources,
+}) => {
+  if (!resources) {
     throw new Error('Missing required parameter: resources')
   }
 
   return poi => {
-    options = poi.merge(options, {
-      scope: ['vue/scss', 'vue/sass', 'scss', 'sass'],
-    })
-
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       config.module
         .rule('vue')
           .use('vue-loader')
-            .tap(opt => injectResourcesToVue(opt, options))
+            .tap(opt => injectResourcesToVue(opt, resources, scope))
             .end()
-      if (options.scope.includes('sass')) {
-        injectResources(config.module.rule('sass'), options)
+      if (scope.includes('sass')) {
+        injectResources(config.module.rule('sass'), resources)
       }
-      if (options.scope.includes('scss')) {
-        injectResources(config.module.rule('scss'), options)
+      if (scope.includes('scss')) {
+        injectResources(config.module.rule('scss'), resources)
       }
     })
   }

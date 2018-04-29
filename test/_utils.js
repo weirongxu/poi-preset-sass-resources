@@ -7,9 +7,9 @@ exports.poi = (source, target, options = {}, env = 'production') => {
   source = path.resolve(__dirname, `fixtures/${source}`)
   target = path.resolve(__dirname, `fixtures/dist/${target}`)
   const config = path.resolve(__dirname, `fixtures/poi.config.js`)
-  const args = [poi, 'build', source, '-d', target, '-c', config, '--no-clear']
+  const args = [poi, 'build', '--out-dir', target, source]
   const cmd = spawnSync(node, args, {
-    cwd: path.resolve('./'),
+    cwd: path.resolve(__dirname, 'fixtures'),
     env: {
       NODE_ENV: env,
       POI_OPTIONS: JSON.stringify(options),

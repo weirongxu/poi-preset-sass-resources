@@ -17,7 +17,7 @@ npm i -g poi-preset-sass-resources
 ```javascript
 // poi.config.js
 module.exports = {
-  presets: [
+  plugins: [
     require('poi-preset-sass-resources')({
       resources: 'path/to/file.scss'
     })
