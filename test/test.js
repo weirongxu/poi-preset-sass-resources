@@ -5,7 +5,8 @@ const test = require('ava')
 const {poi} = require('./_utils')
 
 const distPath = path.resolve(__dirname, 'fixtures/dist')
-const resourcesPath = path.resolve(__dirname, 'fixtures/common.scss')
+const scssResourcesPath = path.resolve(__dirname, 'fixtures/common.scss')
+const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
 
 test('should required resources', t => {
   const cmd = poi('index.js', 'miss-resources', {})
@@ -13,12 +14,29 @@ test('should required resources', t => {
   t.true(cmd.output.toString().includes('Missing required parameter: resources'))
 })
 
-test('resources scss', t => {
-  const cmd = poi('index.js', 'resources-scss', {
-    resources: resourcesPath,
+const testBuild = (t, dist, resources) => {
+  const cmd = poi('index.js', dist, {
+    resources,
   })
   t.is(cmd.status, 0)
-  const [clientCss] = glob.sync(path.resolve(distPath, 'resources-scss/main.*.css'))
+  const [clientCss] = glob.sync(path.resolve(distPath, `${dist}/main.*.css`))
   const cssContent = fs.readFileSync(clientCss).toString()
   t.true(cssContent.includes('display:flex'))
+}
+
+test('resources scss', t => {
+  testBuild(t, 'resources-scss', scssResourcesPath)
 })
+
+test('resources scss array', t => {
+  testBuild(t, 'resources-scss-arra', [scssResourcesPath])
+})
+
+// TODO
+// test('resources sass', t => {
+//   testBuild(t, 'resources-sass', sassResourcesPath)
+// })
+//
+// test('resources sass array', t => {
+//   testBuild(t, 'resources-sass-array', [sassResourcesPath])
+// })

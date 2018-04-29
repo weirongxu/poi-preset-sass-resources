@@ -28,7 +28,8 @@
   },
   "scripts": {
     "docs": "documentation readme index.js -s API",
-    "test": "xo && ava"
+    "test": "xo && ava",
+    "dev": "ava -w"
   },
   "devDependencies": {
     "ava": "^0.25.0",
