@@ -5,7 +5,16 @@
   "main": "index.js",
   "repository": "https://github.com/weirongxu/poi-preset-sass-resources.git",
   "author": "Weirong Xu <weirongxu.raidou@gmail.com>",
+  "homepage": "https://github.com/weirongxu/poi-preset-sass-resources",
   "license": "MIT",
+  "keywords": [
+    "plugin",
+    "poi",
+    "poi-plugin",
+    "poi-preset",
+    "sass-resources",
+    "sass-resources-loader"
+  ],
   "files": [
     "index.js"
   ],
@@ -17,6 +26,8 @@
         "error",
         "always-multiline"
       ],
+      "no-warning-comments": "off",
+      "capitalized-comments": "off",
       "indent": [
         "error",
         2,

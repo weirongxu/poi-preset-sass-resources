@@ -6,7 +6,7 @@ const {poi} = require('./_utils')
 
 const distPath = path.resolve(__dirname, 'fixtures/dist')
 const scssResourcesPath = path.resolve(__dirname, 'fixtures/common.scss')
-const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
+// const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
 
 test('should required resources', t => {
   const cmd = poi('index.js', 'miss-resources', {})
@@ -32,7 +32,7 @@ test('resources scss array', t => {
   testBuild(t, 'resources-scss-arra', [scssResourcesPath])
 })
 
-// TODO
+// TODO:
 // test('resources sass', t => {
 //   testBuild(t, 'resources-sass', sassResourcesPath)
 // })
