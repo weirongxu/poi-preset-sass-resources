@@ -26,6 +26,7 @@
         "error",
         "always-multiline"
       ],
+      "semi-style": ["error", "first"],
       "no-warning-comments": "off",
       "capitalized-comments": "off",
       "indent": [

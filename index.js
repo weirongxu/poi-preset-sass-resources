@@ -29,11 +29,18 @@ function injectResources(rule, resources) {
  * @name sassResourcesPreset
  * @param {Object} options
  * @param {String|String[]} [options.resources]
- * @param {String[]} [options.scope=['vue/scss', 'vue/sass', 'scss', 'sass']]
+ * @param {String[]} [options.scope=['vue/scss', 'vue/sass', 'module.scss', 'module.sass', 'scss', 'sass']]
  *
  */
 module.exports = ({
-  scope = ['vue/scss', 'vue/sass', 'scss', 'sass'],
+  scope = [
+    'vue/scss',
+    'vue/sass',
+    'scss',
+    'sass',
+    'module.scss',
+    'module.sass',
+  ],
   resources,
 }) => {
   if (!resources) {
@@ -47,12 +54,16 @@ module.exports = ({
           .use('vue-loader')
             .tap(opt => injectResourcesToVue(opt, resources, scope))
             .end()
-      if (scope.includes('sass')) {
-        injectResources(config.module.rule('sass'), resources)
-      }
-      if (scope.includes('scss')) {
-        injectResources(config.module.rule('scss'), resources)
-      }
+      Object.entries({
+        'module.sass': 'sass-module',
+        'module.scss': 'scss-module',
+        'sass': 'sass',
+        'scss': 'scss',
+      }).forEach(([ext, rule]) => {
+        if (scope.includes(ext)) {
+          injectResources(config.module.rule(rule), resources)
+        }
+      })
     })
   }
 }

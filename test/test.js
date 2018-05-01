@@ -6,18 +6,27 @@ const {poi} = require('./_utils')
 
 const distPath = path.resolve(__dirname, 'fixtures/dist')
 const scssResourcesPath = path.resolve(__dirname, 'fixtures/common.scss')
-// const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
+const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
 
 test('should required resources', t => {
-  const cmd = poi('index.js', 'miss-resources', {})
+  const cmd = poi('index.js', 'miss-resources', `{
+    plugins: [require('../../')({})],
+  }`)
   t.is(cmd.status, 1)
   t.true(cmd.output.toString().includes('Missing required parameter: resources'))
 })
 
-const testBuild = (t, dist, resources) => {
-  const cmd = poi('index.js', dist, {
-    resources,
-  })
+const testBuild = (t, sass, dist, resources) => {
+  const cmd = poi('index.js', dist, `{
+    plugins: [require('../../')({
+      resources: ${JSON.stringify(resources)},
+    })],
+    define: {
+      SASS: ${JSON.stringify(sass)},
+    },
+  }`)
+  console.log(cmd.stdout.toString())
+  console.log(cmd.stderr.toString())
   t.is(cmd.status, 0)
   const [clientCss] = glob.sync(path.resolve(distPath, `${dist}/main.*.css`))
   const cssContent = fs.readFileSync(clientCss).toString()
@@ -25,18 +34,37 @@ const testBuild = (t, dist, resources) => {
 }
 
 test('resources scss', t => {
-  testBuild(t, 'resources-scss', scssResourcesPath)
+  testBuild(
+    t,
+    false,
+    'resources-scss',
+    scssResourcesPath
+  )
 })
 
 test('resources scss array', t => {
-  testBuild(t, 'resources-scss-arra', [scssResourcesPath])
+  testBuild(
+    t,
+    false,
+    'resources-scss-array',
+    [scssResourcesPath]
+  )
 })
 
-// TODO:
-// test('resources sass', t => {
-//   testBuild(t, 'resources-sass', sassResourcesPath)
-// })
-//
-// test('resources sass array', t => {
-//   testBuild(t, 'resources-sass-array', [sassResourcesPath])
-// })
+test('resources sass', t => {
+  testBuild(
+    t,
+    true,
+    'resources-sass',
+    sassResourcesPath
+  )
+})
+
+test('resources sass array', t => {
+  testBuild(
+    t,
+    true,
+    'resources-sass-array',
+    [sassResourcesPath]
+  )
+})
