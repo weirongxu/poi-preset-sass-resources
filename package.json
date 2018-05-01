@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-sass-resources",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Add sass-resources support in Poi.",
   "main": "index.js",
   "repository": "https://github.com/weirongxu/poi-preset-sass-resources.git",
@@ -27,7 +27,10 @@
         "always-multiline"
       ],
       "quote-props": "off",
-      "semi-style": ["error", "first"],
+      "semi-style": [
+        "error",
+        "first"
+      ],
       "no-warning-comments": "off",
       "capitalized-comments": "off",
       "indent": [
