@@ -13,7 +13,7 @@ test('should required resources', t => {
     plugins: [require('../../')({})],
   }`)
   t.is(cmd.status, 1)
-  t.true(cmd.output.toString().includes('Missing required parameter: resources'))
+  t.true(cmd.output.toString().includes('Missing required parameter: "resources"'))
 })
 
 const testBuild = (t, sass, dist, resources) => {
