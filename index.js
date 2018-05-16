@@ -44,7 +44,7 @@ module.exports = ({
   resources,
 }) => {
   if (!resources) {
-    throw new Error('Missing required parameter: resources')
+    throw new Error('Missing required parameter: "resources"')
   }
 
   return poi => {
