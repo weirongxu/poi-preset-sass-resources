@@ -1,6 +1,8 @@
+const sassResourcesLoader = require.resolve('sass-resources-loader')
+
 function injectResourcesToVue(options, resources, scope) {
   const loader = {
-    loader: 'sass-resources-loader',
+    loader: sassResourcesLoader,
     options: {
       resources,
     },
@@ -20,7 +22,7 @@ function injectResources(rule, resources) {
   }
   rule
     .use('sass-resources-loader')
-      .loader('sass-resources-loader')
+      .loader(sassResourcesLoader)
       .options(options)
 }
 
