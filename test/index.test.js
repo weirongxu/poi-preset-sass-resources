@@ -1,6 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const glob = require('glob')
+const pify = require('pify')
+const rimraf = require('rimraf')
 const {poi} = require('./_utils')
 
 const distPath = path.resolve(__dirname, 'fixtures/dist')
@@ -33,6 +35,10 @@ const testBuild = (sass, dist, resources) => {
   const cssContent = fs.readFileSync(clientCss).toString()
   expect(cssContent.includes('display:flex')).toBeTruthy()
 }
+
+afterAll(() => {
+  return pify(rimraf)(distPath)
+})
 
 describe('build', () => {
   test('resources scss', () => {

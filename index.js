@@ -41,7 +41,7 @@ module.exports = ({
       [
         'sass',
         'scss',
-      ].forEach(([ruleName]) => {
+      ].forEach(ruleName => {
         if (scope.includes(ruleName)) {
           injectResources(config.module.rule(ruleName), resources)
         }

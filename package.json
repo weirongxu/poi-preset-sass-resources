@@ -21,7 +21,9 @@
   "xo": {
     "space": 2,
     "semicolon": false,
-    "extends": ["plugin:jest/recommended"],
+    "extends": [
+      "plugin:jest/recommended"
+    ],
     "rules": {
       "comma-dangle": [
         "error",
@@ -54,7 +56,9 @@
     "glob": "^7.1.2",
     "jest": "^23.4.0",
     "node-sass": "^4.9.2",
+    "pify": "^3.0.0",
     "poi": "^10.2.9",
+    "rimraf": "^2.6.2",
     "sass-loader": "^7.0.3",
     "xo": "^0.21.1"
   },
