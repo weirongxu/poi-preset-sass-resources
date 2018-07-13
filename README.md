@@ -32,13 +32,14 @@ module.exports = {
 #### Table of Contents
 
 -   [sassResourcesPreset](#sassresourcespreset)
+    -   [Parameters](#parameters)
 
 ### sassResourcesPreset
 
 Add sass-resources support to Poi.
 
-**Parameters**
+#### Parameters
 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.resources` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)?** 
-    -   `options.scope` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**  (optional, default `['vue/scss','vue/sass','scss','sass']`)
+    -   `options.scope` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**  (optional, default `['scss','sass']`)
