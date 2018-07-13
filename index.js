@@ -1,29 +1,20 @@
 const sassResourcesLoader = require.resolve('sass-resources-loader')
 
-function injectResourcesToVue(options, resources, scope) {
-  const loader = {
-    loader: sassResourcesLoader,
-    options: {
-      resources,
-    },
-  }
-  if (scope.includes('vue/sass')) {
-    options.loaders.sass.push(loader)
-  }
-  if (scope.includes('vue/scss')) {
-    options.loaders.scss.push(loader)
-  }
-  return options
-}
-
 function injectResources(rule, resources) {
   const options = {
     resources,
   }
-  rule
-    .use('sass-resources-loader')
-      .loader(sassResourcesLoader)
-      .options(options)
+
+  const moduleQueryRule = rule.oneOf('module-query')
+  const moduleExtRule = rule.oneOf('module-ext')
+  const normalRule = rule.oneOf('normal')
+
+  ;[moduleQueryRule, moduleExtRule, normalRule].forEach(rule => {
+    rule
+      .use('sass-resources-loader')
+        .loader(sassResourcesLoader)
+        .options(options)
+  })
 }
 
 /**
@@ -31,17 +22,13 @@ function injectResources(rule, resources) {
  * @name sassResourcesPreset
  * @param {Object} options
  * @param {String|String[]} [options.resources]
- * @param {String[]} [options.scope=['vue/scss', 'vue/sass', 'module.scss', 'module.sass', 'scss', 'sass']]
+ * @param {String[]} [options.scope=['scss', 'sass']]
  *
  */
 module.exports = ({
   scope = [
-    'vue/scss',
-    'vue/sass',
     'scss',
     'sass',
-    'module.scss',
-    'module.sass',
   ],
   resources,
 }) => {
@@ -51,19 +38,12 @@ module.exports = ({
 
   return poi => {
     poi.chainWebpack(config => {
-      config.module
-        .rule('vue')
-          .use('vue-loader')
-            .tap(opt => injectResourcesToVue(opt, resources, scope))
-            .end()
-      Object.entries({
-        'module.sass': 'sass-module',
-        'module.scss': 'scss-module',
-        'sass': 'sass',
-        'scss': 'scss',
-      }).forEach(([ext, rule]) => {
-        if (scope.includes(ext)) {
-          injectResources(config.module.rule(rule), resources)
+      [
+        'sass',
+        'scss',
+      ].forEach(([ruleName]) => {
+        if (scope.includes(ruleName)) {
+          injectResources(config.module.rule(ruleName), resources)
         }
       })
     })
