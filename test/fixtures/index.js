@@ -1,4 +1,4 @@
-if (SASS) {
+if (TEST_SASS) {
   require('./index.sass')
   require('./index.module.sass')
 } else {

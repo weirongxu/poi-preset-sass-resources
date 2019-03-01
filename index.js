@@ -5,11 +5,12 @@ function injectResources(rule, resources) {
     resources,
   }
 
-  const moduleQueryRule = rule.oneOf('module-query')
-  const moduleExtRule = rule.oneOf('module-ext')
-  const normalRule = rule.oneOf('normal')
-
-  ;[moduleQueryRule, moduleExtRule, normalRule].forEach(rule => {
+  ;[
+    rule.oneOf('vue-modules'),
+    rule.oneOf('vue'),
+    rule.oneOf('normal-modules'),
+    rule.oneOf('normal'),
+  ].forEach(rule => {
     rule
       .use('sass-resources-loader')
         .loader(sassResourcesLoader)
@@ -20,9 +21,10 @@ function injectResources(rule, resources) {
 /**
  * Add sass-resources support to Poi.
  * @name sassResourcesPreset
- * @param {Object} options
- * @param {String|String[]} [options.resources]
- * @param {String[]} [options.scope=['scss', 'sass']]
+ * @param {Object} api - poi api
+ * @param {Object} options - plugin options
+ * @param {String|String[]} [options.resources] - resources paths
+ * @param {String[]} [options.scope=['scss', 'sass']] - plugin scope
  *
  */
 exports.apply = (api, {

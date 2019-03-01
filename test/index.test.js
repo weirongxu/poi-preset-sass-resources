@@ -12,26 +12,32 @@ const sassResourcesPath = path.resolve(__dirname, 'fixtures/common.sass')
 describe('parameter', () => {
   it('should required resources', () => {
     const cmd = poi('index.js', 'miss-resources', `{
-    plugins: [require('../../')({})],
+    plugins: [{
+      resolve: '../../',
+      options: {}
+    }],
   }`)
     expect(cmd.status).toEqual(1)
     expect(cmd.output.toString().includes('Missing required parameter: "resources"')).toBeTruthy()
   })
 })
 
-const testBuild = (sass, dist, resources) => {
+const testBuild = (testSass, dist, resources) => {
   const cmd = poi('index.js', dist, `{
-    plugins: [require('../../')({
-      resources: ${JSON.stringify(resources)},
-    })],
-    define: {
-      SASS: ${JSON.stringify(sass)},
+    plugins: [{
+      resolve: '../../',
+      options: {
+        resources: ${JSON.stringify(resources)},
+      }
+    }],
+    constants: {
+      TEST_SASS: ${JSON.stringify(testSass)},
     },
   }`)
   console.log(cmd.stdout.toString())
   console.log(cmd.stderr.toString())
   expect(cmd.status).toEqual(0)
-  const [clientCss] = glob.sync(path.resolve(distPath, `${dist}/main.*.css`))
+  const [clientCss] = glob.sync(path.resolve(distPath, `${dist}/assets/css/index.*.css`))
   const cssContent = fs.readFileSync(clientCss).toString()
   expect(cssContent.includes('display:flex')).toBeTruthy()
 }

@@ -6,7 +6,8 @@ exports.poi = (source, target, options = '{}', env = 'production') => {
   const poi = path.resolve('node_modules/.bin/poi')
   source = path.resolve(__dirname, `fixtures/${source}`)
   target = path.resolve(__dirname, `fixtures/dist/${target}`)
-  const args = [poi, 'build', '--no-clearConsole', '--out-dir', target, source]
+  const args = [poi, '--prod', source, '--no-clear-console', '--out-dir', target]
+
   const cmd = spawnSync(node, args, {
     cwd: path.resolve(__dirname, 'fixtures'),
     env: {
@@ -14,11 +15,13 @@ exports.poi = (source, target, options = '{}', env = 'production') => {
       POI_OPTIONS: options,
     },
   })
+
   if (cmd.status !== 0) {
     console.log('STDOUT')
     console.log(cmd.stdout.toString())
     console.log('STDERR')
     console.log(cmd.stderr.toString())
   }
+
   return cmd
 }
