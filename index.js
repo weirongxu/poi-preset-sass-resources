@@ -25,7 +25,7 @@ function injectResources(rule, resources) {
  * @param {String[]} [options.scope=['scss', 'sass']]
  *
  */
-module.exports = ({
+exports.apply = (api, {
   scope = [
     'scss',
     'sass',
@@ -36,16 +36,14 @@ module.exports = ({
     throw new Error('Missing required parameter: "resources"')
   }
 
-  return poi => {
-    poi.chainWebpack(config => {
-      [
-        'sass',
-        'scss',
-      ].forEach(ruleName => {
-        if (scope.includes(ruleName)) {
-          injectResources(config.module.rule(ruleName), resources)
-        }
-      })
+  api.hook('createWebpackChain', config => {
+    [
+      'sass',
+      'scss',
+    ].forEach(ruleName => {
+      if (scope.includes(ruleName)) {
+        injectResources(config.module.rule(ruleName), resources)
+      }
     })
-  }
+  })
 }
