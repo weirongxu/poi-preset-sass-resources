@@ -18,9 +18,12 @@ npm i -g poi-preset-sass-resources
 // poi.config.js
 module.exports = {
   plugins: [
-    require('poi-preset-sass-resources')({
-      resources: 'path/to/file.scss'
-    })
+    {
+      resolve: 'poi-preset-sass-resources'
+      options: {
+        resources: 'path/to/file.scss'
+      }
+    }
   ]
 }
 ```
@@ -40,6 +43,7 @@ Add sass-resources support to Poi.
 
 #### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `options.resources` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)?** 
-    -   `options.scope` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**  (optional, default `['scss','sass']`)
+-   `api` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** poi api
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** plugin options
+    -   `options.resources` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)?** resources paths
+    -   `options.scope` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** plugin scope (optional, default `['scss','sass']`)
