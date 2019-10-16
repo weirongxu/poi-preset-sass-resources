@@ -5,12 +5,7 @@ function injectResources(rule, resources) {
     resources,
   }
 
-  ;[
-    rule.oneOf('vue-modules'),
-    rule.oneOf('vue'),
-    rule.oneOf('normal-modules'),
-    rule.oneOf('normal'),
-  ].forEach(rule => {
+  rule.oneOfs.store.forEach(rule => {
     rule
       .use('sass-resources-loader')
         .loader(sassResourcesLoader)
