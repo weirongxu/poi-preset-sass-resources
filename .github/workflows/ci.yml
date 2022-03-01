@@ -1,0 +1,43 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14]
+
+    env:
+      NODE_ENV: test
+
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install yarn
+        run: |
+          curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+      - name: Set git
+        run: |
+          git config --global core.autocrlf false
+      - uses: actions/checkout@v2
+      - name: Install Packages
+        run: yarn install
+      - name: Run unit tests
+        env:
+          NODE_ENV: test
+        run: yarn test
